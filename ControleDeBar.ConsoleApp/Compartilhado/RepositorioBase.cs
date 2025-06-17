@@ -1,18 +1,18 @@
-﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+﻿using ControleDeBar.ConsoleApp.Compartilhado;
 
-namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+namespace ControleDeBar.ConsoleApp.Compartilhado;
 
 public abstract class RepositorioBase
 {
     private EntidadeBase[] registros = new EntidadeBase[100];
     private int contadorRegistros = 0;
+    protected int contadorIds = 0;
 
     public void CadastrarRegistro(EntidadeBase novoRegistro)
     {
-        novoRegistro.id = contadorRegistros;
-        registros[contadorRegistros] = novoRegistro;
+        novoRegistro.Id = ++contadorIds;
 
-        contadorRegistros++;
+        registros[contadorRegistros++] = novoRegistro;
     }
 
     public bool EditarRegistro(int idSelecionado, EntidadeBase registroAtualizado)
@@ -33,7 +33,8 @@ public abstract class RepositorioBase
         {
             if (registros[i] == null)
                 continue;
-            else if (registros[i].id == idSelecionado)
+
+            else if (registros[i].Id == idSelecionado)
             {
                 registros[i] = null;
 
@@ -57,7 +58,7 @@ public abstract class RepositorioBase
             if (registro == null)
                 continue;
 
-            if (registro.id == idSelecionado)
+            if (registro.Id == idSelecionado)
                 return registro;
         }
 

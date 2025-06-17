@@ -1,4 +1,4 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+﻿using ControleDeBar.ConsoleApp.Compartilhado;
 
 namespace ClubeDaLeitura.ConsoleApp.Compartilhado;
 public abstract class TelaBase
@@ -34,6 +34,7 @@ public abstract class TelaBase
         ExibirCabecalho();
 
         Console.WriteLine($"Cadastro de {nomeEntidade}");
+
         Console.WriteLine();
 
         EntidadeBase novoRegistro = ObterDados();
@@ -42,48 +43,65 @@ public abstract class TelaBase
 
         if (erros.Length > 0)
         {
-            Console.WriteLine();
+            ApresentarMensagem(
+                string.Concat(erros, "\nDigite ENTER para continuar..."),
+                ConsoleColor.Red
+            );
 
-            Console.ForegroundColor = ConsoleColor.Red;
-
-            Console.WriteLine(erros);
-            Console.ReadLine();
-            Console.ResetColor();
-
-            Console.WriteLine("\nDigite ENTER para contnuar...");
-            Console.ReadLine();
-
-    
             CadastrarRegistro();
+
             return;
         }
 
         repositorio.CadastrarRegistro(novoRegistro);
 
-        Console.WriteLine($"\n{nomeEntidade} cadastrado com sucesso");
-        Console.ReadLine();
+        ApresentarMensagem($"{nomeEntidade} cadastrado/a com sucesso!", ConsoleColor.Green);
     }
 
-    public void EditarRegistros()
+    public virtual void EditarRegistros()
     {
         ExibirCabecalho();
 
         Console.WriteLine($"Edição de {nomeEntidade}");
+
         Console.WriteLine();
 
         VisualizarRegistros(false);
 
-        Console.WriteLine($"Digite o id do {nomeEntidade} que deseja selecionar:");
-        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+        bool conseguiuConverterId = false;
+
+        int idSelecionado = 0;
+
+        while (!conseguiuConverterId)
+        {
+            Console.Write("Digite o ID do registro que deseja selecionar: ");
+            conseguiuConverterId = int.TryParse(Console.ReadLine(), out idSelecionado);
+
+            if (!conseguiuConverterId)
+                ApresentarMensagem("Digite um número válido!", ConsoleColor.DarkYellow);
+        }
 
         Console.WriteLine();
 
         EntidadeBase registroAtualizado = ObterDados();
 
+        string erros = registroAtualizado.Validar();
+
+        if (erros.Length > 0)
+        {
+            ApresentarMensagem(
+                string.Concat(erros, "\nDigite ENTER para continuar..."),
+                ConsoleColor.Red
+            );
+
+            EditarRegistro();
+
+            return;
+        }
+
         repositorio.EditarRegistro(idSelecionado, registroAtualizado);
 
-        Console.WriteLine($"\n{nomeEntidade} editado com sucesso");
-        Console.ReadLine();
+        ApresentarMensagem($"{nomeEntidade} editado/a com sucesso!", ConsoleColor.Green);
     }
 
     public void ExcluirRegistros()
@@ -96,30 +114,46 @@ public abstract class TelaBase
 
         VisualizarRegistros(false);
 
-        Console.WriteLine($"Digite o id do {nomeEntidade} que deseja selecionar:");
-        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+        bool conseguiuConverterId = false;
+
+        int idSelecionado = 0;
+
+        while (!conseguiuConverterId)
+        {
+            Console.Write("Digite o ID do registro que deseja selecionar: ");
+            conseguiuConverterId = int.TryParse(Console.ReadLine(), out idSelecionado);
+
+            if (!conseguiuConverterId)
+                ApresentarMensagem("Digite um número válido!", ConsoleColor.DarkYellow);
+        }
 
         Console.WriteLine();
 
-        bool conseguiuExluir = repositorio.ExcluirRegistro(idSelecionado);
+        repositorio.ExcluirRegistro(idSelecionado);
 
-        if (!conseguiuExluir)
-        {
-            Console.WriteLine($"Não foi possível encontrar o {nomeEntidade} selecionado");
-            Console.ReadLine();
-
-            return;
-        }
-        Console.WriteLine($"\n{nomeEntidade} excluído com sucesso");
-        Console.ReadLine();
+        ApresentarMensagem($"{nomeEntidade} excluído/a com sucesso!", ConsoleColor.Green);
     }
 
     public abstract void VisualizarRegistros(bool exibirCabecalho);
     protected void ExibirCabecalho()
     {
         Console.Clear();
-        Console.WriteLine($"Gestão de {nomeEntidade}");
+        Console.WriteLine("----------------------------------------");
+        Console.WriteLine("|           Controle de Bar            |");
+        Console.WriteLine("----------------------------------------");
         Console.WriteLine();
+    }
+
+    protected void ApresentarMensagem(string mensagem, ConsoleColor cor)
+    {
+        Console.ForegroundColor = cor;
+
+        Console.WriteLine();
+        Console.WriteLine(mensagem);
+
+        Console.ResetColor();
+
+        Console.ReadLine();
     }
     protected abstract EntidadeBase ObterDados();
 }
