@@ -1,4 +1,4 @@
-﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+﻿using ControleDeBar.ConsoleApp.Compartilhado;
 
 namespace ControleDeBar.ConsoleApp
 {
@@ -6,18 +6,21 @@ namespace ControleDeBar.ConsoleApp
     {
         static void Main(string[] args)
         {
+
             TelaPrincipal telaPrincipal = new TelaPrincipal();
 
             while (true)
             {
                 telaPrincipal.ApresentarMenuPrincipal();
 
-                TelaBase telaEscolhida = telaPrincipal.ObterTela();
+                ITela telaEscolhida = telaPrincipal.ObterTela();
 
                 if (telaEscolhida == null)
                     break;
 
                 char opcaoEscolhida = telaEscolhida.ApresentarMenu();
+
+
 
                 if (char.ToUpper(opcaoEscolhida) == 'S')
                     break;
@@ -33,6 +36,6 @@ namespace ControleDeBar.ConsoleApp
                     case '4': telaEscolhida.VisualizarRegistros(true); break;
                 }
             }
-        }
+        }  
     }
 }

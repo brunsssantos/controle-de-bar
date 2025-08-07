@@ -2,23 +2,23 @@
 
 namespace ControleDeBar.ConsoleApp.Compartilhado;
 
-public abstract class RepositorioBase
+public abstract class RepositorioBase<Tipo> where Tipo : EntidadeBase<Tipo>
 {
-    private EntidadeBase[] registros = new EntidadeBase[100];
-    private int contadorRegistros = 0;
+    protected Tipo[] registros = new Tipo[100];
+    protected int contadorRegistros = 0;
     protected int contadorIds = 0;
 
-    public void CadastrarRegistro(EntidadeBase novoRegistro)
+    public void CadastrarRegistro(Tipo novoRegistro)
     {
         novoRegistro.Id = ++contadorIds;
 
         registros[contadorRegistros++] = novoRegistro;
     }
 
-    public bool EditarRegistro(int idSelecionado, EntidadeBase registroAtualizado)
+    public bool EditarRegistro(int idSelecionado, Tipo registroAtualizado)
     {
 
-        EntidadeBase registroSelecionado = SelecionarRegistroPorId(idSelecionado);
+        Tipo registroSelecionado = SelecionarRegistroPorId(idSelecionado);
 
         if (registroSelecionado == null)
             return false;
@@ -45,15 +45,15 @@ public abstract class RepositorioBase
         return false;
     }
 
-    public EntidadeBase[] SelecionarRegistros()
+    public Tipo[] SelecionarRegistros()
     {
         return registros;
     }
-    public EntidadeBase SelecionarRegistroPorId(int idSelecionado)
+    public Tipo SelecionarRegistroPorId(int idSelecionado)
     {
         for (int i = 0; i < registros.Length; i++)
         {
-            EntidadeBase registro = registros[i];
+            Tipo registro = registros[i];
 
             if (registro == null)
                 continue;

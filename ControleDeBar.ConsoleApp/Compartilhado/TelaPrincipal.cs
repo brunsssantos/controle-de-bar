@@ -37,7 +37,7 @@ public class TelaPrincipal
         opcaoEscolhida = Console.ReadLine()![0];
     }
 
-    public TelaBase ObterTela()
+    public ITela ObterTela()
     {
         if (opcaoEscolhida == '1')
             return telaMesa;
