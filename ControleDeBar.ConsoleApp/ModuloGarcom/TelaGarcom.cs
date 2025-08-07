@@ -3,7 +3,7 @@ using ControleDeBar.ConsoleApp.ModuloMesa;
 
 namespace ControleDeBar.ConsoleApp.ModuloGarcom;
 
-public class TelaGarcom : TelaBase<Garcom>
+public class TelaGarcom : TelaBase<Garcom>, ITela
 {
     public TelaGarcom(RepositorioGarcom repositorio) : base("Garçom", repositorio)
     {
