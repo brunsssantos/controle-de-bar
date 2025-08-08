@@ -2,5 +2,5 @@
 
 namespace ControleDeBar.ConsoleApp.ModuloMesa;
 
-internal class RepositorioMesa : RepositorioBase<Mesa>;
+public class RepositorioMesa : RepositorioBase<Mesa>;
 

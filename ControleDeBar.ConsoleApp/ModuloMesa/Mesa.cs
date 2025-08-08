@@ -1,7 +1,7 @@
 ﻿using ControleDeBar.ConsoleApp.Compartilhado;
 namespace ControleDeBar.ConsoleApp.ModuloMesa;
 
-internal class Mesa : EntidadeBase<Mesa>
+public class Mesa : EntidadeBase<Mesa>
 {
     public int Numero { get; set; }
     public int Capacidade { get; set; }
