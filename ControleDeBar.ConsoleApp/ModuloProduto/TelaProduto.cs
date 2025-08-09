@@ -19,18 +19,15 @@ public class TelaProduto : TelaBase<Produto>, ITela
 
         Console.WriteLine("{0, -10} | {1, -30} | {2, -30}", "Id", "Nome", "Valor (R$)");
 
-        Produto[] produtos = repositorio.SelecionarRegistros();
+        List<Produto> produtos = repositorio.SelecionarRegistros();
 
-        for (int i = 0; i < produtos.Length; i++)
+        foreach (Produto produto in produtos)
         {
-            Produto p = produtos[i];
-
-            if (p == null)
+            if (produto == null)
                 continue;
-
-            Console.WriteLine("{0, -10} | {1, -30} | {2, -30}", p.Id, p.Nome, p.Valor.ToString("C2"));
+            Console.WriteLine("{0, -10} | {1, -30} | {2, -30}", produto.Id, produto.Nome, produto.Valor.ToString("C2"));
         }
-
+       
         ApresentarMensagem("Digite ENTER para continuar...", ConsoleColor.DarkYellow);
     }
 

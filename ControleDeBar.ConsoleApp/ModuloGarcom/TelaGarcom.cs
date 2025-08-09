@@ -20,15 +20,10 @@ public class TelaGarcom : TelaBase<Garcom>, ITela
 
         Console.WriteLine("{0, -10} | {1, -30} | {2, -30}","Id", "Nome", "CPF");
 
-        Garcom[] garcons = repositorio.SelecionarRegistros();
+       List<Garcom> garcons = repositorio.SelecionarRegistros();
 
-        for (int i = 0; i < garcons.Length; i++)
+        foreach (Garcom g in garcons)
         {
-            Garcom g = garcons[i];
-
-            if (g == null)
-                continue;
-
             Console.WriteLine("{0, -10} | {1, -30} | {2, -30}", g.Id, g.Nome, g.Cpf);
         }
 

@@ -23,20 +23,14 @@ internal class TelaMesa : TelaBase<Mesa>, ITela
             "Id", "Número", "Capacidade", "Status"
         );
 
-        Mesa[] mesas = repositorio.SelecionarRegistros();
+        List<Mesa> mesas = repositorio.SelecionarRegistros();
 
-        for (int i = 0; i < mesas.Length; i++)
+        foreach (Mesa mesa in mesas)
         {
-            Mesa m = mesas[i];
-
-            if (m == null)
-                continue;
-
-            string statusMesa = m.EstaOcupada ? "Ocupada" : "Disponível";
-
+            string statusMesa = mesa.EstaOcupada ? "Ocupada" : "Disponível";
             Console.WriteLine(
-              "{0, -10} | {1, -30} | {2, -30}",
-                m.Id, m.Numero, m.Capacidade, statusMesa
+              "{0, -10} | {1, -30} | {2, -30} | {3, -30}",
+                mesa.Id, mesa.Numero, mesa.Capacidade, statusMesa
             );
         }
 

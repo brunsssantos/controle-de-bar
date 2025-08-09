@@ -349,22 +349,17 @@ public class TelaConta : ITela
             "Id", "Número", "Capacidade", "Status"
         );
 
-        Mesa[] mesas = repositorioMesa.SelecionarRegistros();
-
-        for (int i = 0; i < mesas.Length; i++)
+        List<Mesa> mesas = repositorioMesa.SelecionarRegistros();
+        
+        foreach (Mesa m in mesas)
         {
-            Mesa m = mesas[i];
-
-            if (m == null)
-                continue;
-
             string statusMesa = m.EstaOcupada ? "Ocupada" : "Disponível";
-
             Console.WriteLine(
               "{0, -10} | {1, -20} | {2, -20} | {3, -30}",
                 m.Id, m.Numero, m.Capacidade, statusMesa
             );
         }
+
     }
 
     private void VisualizarGarcons()
@@ -378,17 +373,13 @@ public class TelaConta : ITela
         Console.WriteLine(
             "{0, -10} | {1, -30} | {2, -30}", "Id", "Nome", "CPF");
 
-        Garcom[] garcons = repositorioGarcom.SelecionarRegistros();
+        List<Garcom> garcons = repositorioGarcom.SelecionarRegistros();
 
-        for (int i = 0; i < garcons.Length; i++)
+        foreach (Garcom g in garcons)
         {
-            Garcom g = garcons[i];
-
-            if (g == null)
-                continue;
-
             Console.WriteLine("{0, -10} | {1, -30} | {2, -30}", g.Id, g.Nome, g.Cpf);
         }
+    
     }
 
     private void VisualizarPedidosConta(Conta conta)
@@ -426,16 +417,11 @@ public class TelaConta : ITela
         Console.WriteLine(
             "{0, -10} | {1, -30} | {2, -30}", "Id", "Nome", "Valor");
 
-        Produto[] produtos = repositorioProduto.SelecionarRegistros();
+        List<Produto> produtos = repositorioProduto.SelecionarRegistros();
 
-        for (int i = 0; i < produtos.Length; i++)
+        foreach (Produto produto in produtos)
         {
-            Produto p = produtos[i];
-
-            if (p == null)
-                continue;
-
-            Console.WriteLine("{0, -10} | {1, -30} | {2, -30}", p.Id, p.Nome, p.Valor.ToString("C2"));
+            Console.WriteLine("{0, -10} | {1, -30} | {2, -30}", produto.Id, produto.Nome, produto.Valor.ToString("C2"));
         }
     }
 
