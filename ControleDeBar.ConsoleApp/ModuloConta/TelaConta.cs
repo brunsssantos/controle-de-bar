@@ -135,6 +135,8 @@ public class TelaConta : ITela
 
         Conta contaSelecionada = repositorioConta.SelecionarContaPorId(id);
 
+        Console.WriteLine();
+
         Console.Write($"Deseja realmente fechar a conta do titular \"{contaSelecionada.Titular}\" (S/N)");
         char opcaoEscolhida = Console.ReadLine()[0];
 
@@ -149,8 +151,6 @@ public class TelaConta : ITela
     public void ExcluirRegistro()
     {
     }
-
-
 
     public void VisualizarRegistros(bool exibirCabecalho)
     {
@@ -182,6 +182,118 @@ public class TelaConta : ITela
                 c.Id, c.Titular, c.Mesa.Numero, c.Garcom.Nome, c.Abertura.ToShortDateString(), statusConta
             );
         }
+
+        ApresentarMensagem("Digite ENTER para continuar...", ConsoleColor.DarkYellow);
+    }
+
+    public void VisualizarContasEmAberto()
+    {
+            ExibirCabecalho();
+
+        Console.WriteLine("Visualização de Contas em Aberto");
+
+        Console.WriteLine();
+
+        Console.WriteLine(
+            "{0, -10} | {1, -20} | {2, -14} | {3, -20} | {4, -20} | {5, -20}",
+            "Id", "Titular", "Mesa", "Garçom", "Abertura", "Status"
+        );
+
+        Conta[] contas = repositorioConta.SelecionarContasEmAberto();
+
+        for (int i = 0; i < contas.Length; i++)
+        {
+            Conta c = contas[i];
+
+            if (c == null)
+                continue;
+
+            string statusConta = c.EstaAberta ? "Aberta" : "Fechada";
+
+            Console.WriteLine(
+                "{0, -10} | {1, -20} | {2, -14} | {3, -20} | {4, -20} | {5, -20}",
+                c.Id, c.Titular, c.Mesa.Numero, c.Garcom.Nome, c.Abertura.ToShortDateString(), statusConta
+            );
+        }
+
+        ApresentarMensagem("Digite ENTER para continuar...", ConsoleColor.DarkYellow);
+    }
+
+    public void VisualizarContasFechadas()
+    {
+        ExibirCabecalho();
+
+        Console.WriteLine("Visualização de Contas Fechadas");
+
+        Console.WriteLine();
+
+        Console.WriteLine(
+            "{0, -10} | {1, -20} | {2, -14} | {3, -20} | {4, -20} | {5, -20}",
+            "Id", "Titular", "Mesa", "Garçom", "Abertura", "Status"
+        );
+
+        Conta[] contas = repositorioConta.SelecionarContasFechadas();
+
+        for (int i = 0; i < contas.Length; i++)
+        {
+            Conta c = contas[i];
+
+            if (c == null)
+                continue;
+
+            string statusConta = c.EstaAberta ? "Aberta" : "Fechada";
+
+            Console.WriteLine(
+                "{0, -10} | {1, -20} | {2, -14} | {3, -20} | {4, -20} | {5, -20}",
+                c.Id, c.Titular, c.Mesa.Numero, c.Garcom.Nome, c.Abertura.ToShortDateString(), statusConta
+            );
+        }
+
+        ApresentarMensagem("Digite ENTER para continuar...", ConsoleColor.DarkYellow);
+    }
+
+    public void VisualizarFaturamentoDiario()
+    {
+        ExibirCabecalho();
+
+        Console.WriteLine("Visualizar Faturamento Diário");
+
+        Console.WriteLine();
+
+        Console.WriteLine("Digite uma data válida: ");
+        DateTime dataFaturamento = DateTime.Parse(Console.ReadLine());
+
+        Console.WriteLine();
+
+        Console.WriteLine(
+            "{0, -10} | {1, -20} | {2, -14} | {3, -20} | {4, -20} | {5, -20}",
+            "Id", "Titular", "Mesa", "Garçom", "Abertura", "Status"
+        );
+
+        decimal totalFaturamento = 0.0m;
+
+        Conta[] contasFaturamento = repositorioConta.SelecionarContasPorData(dataFaturamento);
+
+        for (int i = 0; i < contasFaturamento.Length; i++)
+        {
+            Conta c = contasFaturamento[i];
+
+            if (c == null)
+                continue;
+
+            totalFaturamento += c.CalcularValorTotal();
+
+            string statusConta = c.EstaAberta ? "Aberta" : "Fechada";
+
+            Console.WriteLine(
+                "{0, -10} | {1, -20} | {2, -14} | {3, -20} | {4, -20} | {5, -20}",
+                c.Id, c.Titular, c.Mesa.Numero, c.Garcom.Nome, c.Abertura.ToShortDateString(), statusConta
+            );
+        }
+
+        Console.WriteLine();
+
+        Console.WriteLine($"o Total faturado do dia foi: {totalFaturamento.ToString("C2")});
 
         ApresentarMensagem("Digite ENTER para continuar...", ConsoleColor.DarkYellow);
     }
