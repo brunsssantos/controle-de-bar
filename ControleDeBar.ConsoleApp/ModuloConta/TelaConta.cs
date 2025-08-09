@@ -166,15 +166,10 @@ public class TelaConta : ITela
             "Id", "Titular", "Mesa", "Garçom", "Abertura", "Status"
         );
 
-        Conta[] contas = repositorioConta.SelecionarContas();
+        List<Conta> contas = repositorioConta.SelecionarContas();
 
-        for (int i = 0; i < contas.Length; i++)
+        foreach (Conta c in contas)
         {
-            Conta c = contas[i];
-
-            if (c == null)
-                continue;
-
             string statusConta = c.EstaAberta ? "Aberta" : "Fechada";
 
             Console.WriteLine(
@@ -182,7 +177,7 @@ public class TelaConta : ITela
                 c.Id, c.Titular, c.Mesa.Numero, c.Garcom.Nome, c.Abertura.ToShortDateString(), statusConta
             );
         }
-
+           
         ApresentarMensagem("Digite ENTER para continuar...", ConsoleColor.DarkYellow);
     }
 
@@ -199,15 +194,10 @@ public class TelaConta : ITela
             "Id", "Titular", "Mesa", "Garçom", "Abertura", "Status"
         );
 
-        Conta[] contas = repositorioConta.SelecionarContasEmAberto();
+        List<Conta> contasEmAberto = repositorioConta.SelecionarContasEmAberto();
 
-        for (int i = 0; i < contas.Length; i++)
+        foreach (Conta c in contasEmAberto)
         {
-            Conta c = contas[i];
-
-            if (c == null)
-                continue;
-
             string statusConta = c.EstaAberta ? "Aberta" : "Fechada";
 
             Console.WriteLine(
@@ -232,21 +222,16 @@ public class TelaConta : ITela
             "Id", "Titular", "Mesa", "Garçom", "Abertura", "Status"
         );
 
-        Conta[] contas = repositorioConta.SelecionarContasFechadas();
+        List<Conta> contasFechadas = repositorioConta.SelecionarContasFechadas();
 
-        for (int i = 0; i < contas.Length; i++)
+        foreach (Conta c in contasFechadas)
         {
-            Conta c = contas[i];
-
-            if (c == null)
-                continue;
 
             string statusConta = c.EstaAberta ? "Aberta" : "Fechada";
 
             Console.WriteLine(
                 "{0, -10} | {1, -20} | {2, -14} | {3, -20} | {4, -20} | {5, -20}",
-                c.Id, c.Titular, c.Mesa.Numero, c.Garcom.Nome, c.Abertura.ToShortDateString(), statusConta
-            );
+                c.Id, c.Titular, c.Mesa.Numero, c.Garcom.Nome, c.Abertura.ToShortDateString(), statusConta);
         }
 
         ApresentarMensagem("Digite ENTER para continuar...", ConsoleColor.DarkYellow);
@@ -272,15 +257,10 @@ public class TelaConta : ITela
 
         decimal totalFaturamento = 0.0m;
 
-        Conta[] contasFaturamento = repositorioConta.SelecionarContasPorData(dataFaturamento);
+        List<Conta> contasFaturamento = repositorioConta.SelecionarContasPorData(dataFaturamento);
 
-        for (int i = 0; i < contasFaturamento.Length; i++)
+        foreach (Conta c in contasFaturamento)
         {
-            Conta c = contasFaturamento[i];
-
-            if (c == null)
-                continue;
-
             totalFaturamento += c.CalcularValorTotal();
 
             string statusConta = c.EstaAberta ? "Aberta" : "Fechada";
@@ -293,7 +273,7 @@ public class TelaConta : ITela
 
         Console.WriteLine();
 
-        Console.WriteLine($"o Total faturado do dia foi: {totalFaturamento.ToString("C2")});
+        Console.WriteLine($"O Total faturado do dia foi: {totalFaturamento.ToString("C2")}");
 
         ApresentarMensagem("Digite ENTER para continuar...", ConsoleColor.DarkYellow);
     }
