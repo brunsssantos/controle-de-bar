@@ -29,8 +29,12 @@ namespace ControleDeBar.ConsoleApp
                     switch (opcaoEscolhida)
                     {
                         case '1': telaConta.CadastrarRegistro(); break;
-                        case '2': telaConta.ApresentarMenuGestaoPedidos(); break;
-                        case '3': telaConta.VisualizarRegistros(true); break;
+
+                        case '2': telaConta.EditarRegistro(); break;
+
+                        case '3': telaConta.ApresentarMenuGestaoPedidos(); break;
+
+                        case '4': telaConta.VisualizarRegistros(true); break;
                     }
                 }
                 else

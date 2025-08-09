@@ -122,6 +122,28 @@ public class TelaConta : ITela
 
     public void EditarRegistro()
     {
+        ExibirCabecalho();
+
+        Console.WriteLine("Fechamento de Conta");
+
+        Console.WriteLine();
+
+        VisualizarRegistros(false);
+
+        Console.WriteLine("Digite o ID da conta que deseja fechar: ");
+        int id = Convert.ToInt32(Console.ReadLine());
+
+        Conta contaSelecionada = repositorioConta.SelecionarContaPorId(id);
+
+        Console.Write($"Deseja realmente fechar a conta do titular \"{contaSelecionada.Titular}\" (S/N)");
+        char opcaoEscolhida = Console.ReadLine()[0];
+
+        if (char.ToUpper(opcaoEscolhida) == 'N')
+            return;
+        
+        contaSelecionada.Fechar();
+
+        ApresentarMensagem($"Conta do titular \"{contaSelecionada.Titular}\" fechada com sucesso!", ConsoleColor.Green);
     }
 
     public void ExcluirRegistro()
