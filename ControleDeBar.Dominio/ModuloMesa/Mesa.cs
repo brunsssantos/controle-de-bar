@@ -1,5 +1,6 @@
-﻿using ControleDeBar.ConsoleApp.Compartilhado;
-namespace ControleDeBar.ConsoleApp.ModuloMesa;
+﻿using ControleDeBar.Dominio.Compartilhado;
+
+namespace ControleDeBar.Dominio.ModuloMesa;
 
 public class Mesa : EntidadeBase<Mesa>
 {
