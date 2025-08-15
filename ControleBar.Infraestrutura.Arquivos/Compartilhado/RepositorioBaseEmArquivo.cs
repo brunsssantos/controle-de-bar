@@ -11,7 +11,11 @@ public abstract class RepositorioBaseEmArquivo<Tipo> where Tipo : EntidadeBase<T
     protected RepositorioBaseEmArquivo(ContextoDados contextoDados)
     {
         this.contextoDados = contextoDados; // Inicializa o contexto de dados
+
+        registros = ObterRegistros(); // Obtém os registros do contexto de dados
     }
+
+    protected abstract List<Tipo> ObterRegistros(); // Método abstrato para obter os registros do contexto de dados
     public void CadastrarRegistro(Tipo novoRegistro)
     {
         novoRegistro.Id = ++contadorIds;
