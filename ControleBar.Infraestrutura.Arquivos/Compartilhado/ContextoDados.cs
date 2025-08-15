@@ -53,7 +53,7 @@ public class ContextoDados
         
         string caminhoCompleto = Path.Combine(pastaArmazenamento, arquivoArmazenmento); // Combina o caminho da pasta com o nome do arquivo
 
-        if (File.Exists(caminhoCompleto)) return; // Verifica se o arquivo existe, se não existir, não faz nada
+        if (!File.Exists(caminhoCompleto)) return; // Verifica se o arquivo existe, se não existir, não faz nada
 
         string jsonString = File.ReadAllText(caminhoCompleto); // Lê o conteúdo do arquivo JSON
 

@@ -13,6 +13,16 @@ public abstract class RepositorioBaseEmArquivo<Tipo> where Tipo : EntidadeBase<T
         this.contextoDados = contextoDados; // Inicializa o contexto de dados
 
         registros = ObterRegistros(); // Obtém os registros do contexto de dados
+
+        int maiorId = 0;
+
+        foreach(Tipo registro in registros)
+        {
+            if (registro.Id > maiorId)
+                maiorId = registro.Id;
+        }
+
+        contadorIds = maiorId;
     }
 
     protected abstract List<Tipo> ObterRegistros(); // Método abstrato para obter os registros do contexto de dados

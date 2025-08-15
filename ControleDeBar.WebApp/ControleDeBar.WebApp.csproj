@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\ControleBar.Infraestrutura.Arquivos\ControleDeBar.Infraestrutura.Arquivos.csproj" />
+    <ProjectReference Include="..\ControleDeBar.Dominio\ControleDeBar.Dominio.csproj" />
   </ItemGroup>
 
 </Project>
