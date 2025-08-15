@@ -37,7 +37,7 @@ public class ContextoDados
         jsonOptions.WriteIndented = true; // Formatando o JSON para ser mais legível (com indentação)
         jsonOptions.ReferenceHandler = ReferenceHandler.Preserve; // Preserva referências entre as classes
 
-        var jsonString = JsonSerializer.Serialize(this);
+        var jsonString = JsonSerializer.Serialize(this, jsonOptions);
 
         if(!Directory.Exists(pastaArmazenamento))
             Directory.CreateDirectory(pastaArmazenamento); // Cria a pasta se não existir
@@ -62,7 +62,7 @@ public class ContextoDados
         JsonSerializerOptions jsonOptions = new JsonSerializerOptions();
         jsonOptions.ReferenceHandler = ReferenceHandler.Preserve;
 
-        ContextoDados? contextoArmazenado = JsonSerializer.Deserialize<ContextoDados>(jsonString); // Desserializa o JSON para um objeto do tipo ContextoDados
+        ContextoDados? contextoArmazenado = JsonSerializer.Deserialize<ContextoDados>(jsonString, jsonOptions); // Desserializa o JSON para um objeto do tipo ContextoDados
 
         if (contextoArmazenado == null) return;
 
