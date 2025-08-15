@@ -25,7 +25,7 @@ public class Garcom : EntidadeBase<Garcom> //Generic
         string erros = string.Empty;
 
         if (Nome.Length < 3 || Nome.Length > 100)
-            erros += "O campo \"Nome\" deve conter entre 3 e 100 caracteres";
+            erros += "O campo \"Nome\" deve conter entre 3 e 100 caracteres.";
 
         if (Regex.IsMatch(Cpf, @"^\d{3}\.\d{3}\.\d{3}\-\d{2}$") == false)
             erros += "O campo \"CPF\" deve estar no formato 000.000.000-00";

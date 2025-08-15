@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeBar.Dominio", "Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeBar.Infraestrutura.Memoria", "ControleDeBar.Infraestrutura.Memoria\ControleDeBar.Infraestrutura.Memoria.csproj", "{74D19924-11D3-4D76-88E1-7727F1661FC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeBar.Infraestrutura.Arquivos", "ControleBar.Infraestrutura.Arquivos\ControleDeBar.Infraestrutura.Arquivos.csproj", "{8444A451-85D2-470A-B1DE-BD471C2F07F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{74D19924-11D3-4D76-88E1-7727F1661FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74D19924-11D3-4D76-88E1-7727F1661FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74D19924-11D3-4D76-88E1-7727F1661FC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8444A451-85D2-470A-B1DE-BD471C2F07F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8444A451-85D2-470A-B1DE-BD471C2F07F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8444A451-85D2-470A-B1DE-BD471C2F07F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8444A451-85D2-470A-B1DE-BD471C2F07F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{F5D7E1CD-8199-4531-BB4E-9FA636175DF5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{85780744-3C30-4FD1-86A4-21DF03EAB711} = {5E598C80-0418-4A61-8C8F-8FE4956319D5}
 		{74D19924-11D3-4D76-88E1-7727F1661FC7} = {D4D70EE3-5D9C-4E3D-B676-9B4C690DC5B6}
+		{8444A451-85D2-470A-B1DE-BD471C2F07F8} = {D4D70EE3-5D9C-4E3D-B676-9B4C690DC5B6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D88AED6-E325-4DC9-9999-0FC5A0C00866}
