@@ -10,13 +10,21 @@ public class CadastrarProdutoViewModel
     [MinLength(2, ErrorMessage = "O campo \"Nome\" deve conter ao menos 2 caracteres.")]
     public string Nome { get; set; }
 
-    [Range(1, 1000, ErrorMessage = "O valor do campo \"Valor\" precisa conter um valor entre 1 e 1000.")]
+    [Required(ErrorMessage = "O campo \"Valor\" é obrigatório.")]
+    [DataType(DataType.Currency)]
+    [Range(0, double.MaxValue,
+        ErrorMessage = "O campo \"Valor\" deve ser um valor positivo.")]
     public decimal Valor { get; set; }
 
     public CadastrarProdutoViewModel() 
     {
     }
 
+    public CadastrarProdutoViewModel(string nome, decimal valor) : this()
+    {
+        Nome = nome;
+        Valor = valor;
+    }
 }
 
 public class EditarProdutoViewModel
@@ -27,7 +35,10 @@ public class EditarProdutoViewModel
     [MinLength(2, ErrorMessage = "O campo \"Nome\" deve conter ao menos 2 caracteres.")]
     public string Nome { get; set; }
 
-    [Range(1, 1000, ErrorMessage = "O valor do campo \"Valor\" precisa conter um valor entre 1 e 1000.")]
+    [Required(ErrorMessage = "O campo \"Valor\" é obrigatório.")]
+    [DataType(DataType.Currency)]
+    [Range(0, double.MaxValue,
+        ErrorMessage = "O campo \"Valor\" deve ser um valor positivo.")]
     public decimal Valor { get; set; }
 
     public EditarProdutoViewModel()

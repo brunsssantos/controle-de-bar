@@ -17,6 +17,12 @@ public class CadastrarGarcomViewModel
     public CadastrarGarcomViewModel() // Precisa sempre de um construtor vazio para funcionar
     {
     }
+
+    public CadastrarGarcomViewModel(string nome, string cpf) : this()
+    {
+        Nome = nome;
+        Cpf = cpf;
+    }
 }
 public class EditarGarcomViewModel
 {

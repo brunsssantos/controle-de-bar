@@ -10,22 +10,25 @@
     <title>@ViewData["Title"] | Controle de Bar</title>
 </head>
 <body data-bs-theme="dark">
+    @{
+        var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+    }
     @* Barra de Navegação Navbar *@
     <nav class="navbar bg-body-tertiary">
         <div class="container">
             <a class="navbar-brand" href="/">Controle de Bar</a>
             <ul class="navbar-nav flex-row ms-auto">
                 <li class="nav-item me-2">
-                    <a class="btn btn-primary" href="/Mesa">Mesas</a>
+                    <a class="btn @(controller == "Mesa" ? "btn-primary" : "btn-outline-primary")" href="/Mesa">Mesas</a>
                 </li>
                 <li class="nav-item me-2">
-                    <a class="btn btn-primary" href="/Garcom">Garçons</a>
+                    <a class="btn @(controller == "Garcom" ? "btn-primary" : "btn-outline-primary")" href="/Garcom">Garçons</a>
                 </li>
                 <li class="nav-item me-2">
-                    <a class="btn btn-primary" href="/Conta">Contas</a>
+                    <a class="btn @(controller == "Conta" ? "btn-primary" : "btn-outline-primary")" href="/Conta">Contas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-primary" href="/Produto">Produtos</a>
+                    <a class="btn @(controller == "Produto" ? "btn-primary" : "btn-outline-primary")" href="/Produto">Produtos</a>
                 </li>
             </ul>
         </div>
