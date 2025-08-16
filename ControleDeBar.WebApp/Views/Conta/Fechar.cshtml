@@ -1,0 +1,87 @@
+﻿@model FecharContaViewModel
+
+@{
+    ViewData["Title"] = "Fechamento de Conta";
+}
+
+<div class="row justify-content-center my-5">
+    <div class="col-12 col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4 p-md-5">
+
+                <form asp-action="FecharConfirmado" asp-route-id="@Model.Id" method="post" class="d-flex flex-column gap-3">
+
+                    <h4 class="mb-1">Fechamento de Conta</h4>
+                    <p class="text-body-secondary mb-3">
+                        Confirme os dados antes de encerrar a conta. A mesa será liberada após o fechamento.
+                    </p>
+
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label mb-1">Titular</label>
+                            <input class="form-control bg-body-secondary" value="@Model.Titular" readonly />
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <label class="form-label mb-1">Mesa</label>
+                            <input class="form-control bg-body-secondary" value="@Model.Mesa" readonly />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label mb-1">Garçom</label>
+                            <input class="form-control bg-body-secondary" value="@Model.Garcom" readonly />
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <label class="form-label mb-1">Total</label>
+                            <input class="form-control bg-body-secondary fw-semibold" value="@Model.ValorTotal.ToString("C2")" readonly />
+                        </div>
+                    </div>
+
+                    @if (Model.Pedidos.Any())
+                    {
+                        <div class="mt-2">
+                            <div class="fw-semibold mb-2">Pedidos da Conta</div>
+                            <table class="table align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Produto</th>
+                                        <th class="text-center" style="width:90px;">Qtd.</th>
+                                        <th class="text-end" style="width:120px;">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var pedido in Model.Pedidos)
+                                    {
+                                        <tr>
+                                            <td>@pedido.Produto</td>
+                                            <td class="text-center">@pedido.QuantidadeSolicitada</td>
+                                            <td class="text-end">@pedido.TotalParcial.ToString("C2")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="2" class="text-end">Total</th>
+                                        <th class="text-end">@Model.ValorTotal.ToString("C2")</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-secondary mb-0">
+                            Ainda não há nenhum pedido relacionado à conta.
+                        </div>
+                    }
+
+                    <div class="d-flex justify-content-end align-items-center gap-2 mt-2">
+                        <a asp-action="Index" class="btn btn-outline-secondary">Voltar</a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check2-circle me-1"></i> Confirmar fechamento
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

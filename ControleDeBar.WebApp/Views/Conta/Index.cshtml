@@ -1,42 +1,62 @@
 ﻿@{
     ViewData["Title"] = "Visualização de Contas";
+    var status = Context.Request.Query["status"].ToString()?.ToLower();
 }
 
 @model VisualizarContasViewModel
 
 <div class="container">
-    <div class="d-flex justify-content-end mb-3">
-        <a class="btn btn-primary" asp-action="Abrir">+ Abrir Conta</a>
-    </div>
-</div>
 
+    <div class="row align-items-center mb-3">
+        <div class="col">
+            <div class="d-flex flex-wrap gap-2">
+                <a class="btn @(string.IsNullOrEmpty(status) ? "btn-primary" : "btn-outline-primary")"
+                   asp-action="Index">
+                    Todas as contas
+                </a>
 
-<div class="row g-3">
+                <a class="btn @(status == "abertas" ? "btn-primary" : "btn-outline-primary")"
+                   asp-action="Index" asp-route-status="abertas">
+                    Contas abertas
+                </a>
 
-    @foreach (DetalhesContaViewModel c in Model.Registros)
-    {
-        <div class="col-3">
-
-            <div class="card h-100 bg-dark border-secondary">
-                <div class="card-body">
-                    <h5 class="card-title">@c.Titular</h5>
-                    <p class="card-text mb-1"><strong>Mesa:</strong> @c.Mesa</p>
-                    <p class="card-text mb-1"><strong>Garçom:</strong> @c.Garcom</p>
-
-                    @if (c.EstaAberta)
-                    {
-                        <span class="d-flex gap-1 justify-content-end mt-4">
-                            <a title="Gerenciar pedidos" asp-action="GerenciarPedidos" asp-route-id="@c.Id" class="btn btn-primary">
-                                <i class="bi bi-cart"></i>
-                            </a>
-                            <a title="Fechar conta" asp-action="Fechar" asp-route-id="@c.Id" class="btn btn-success">
-                                <i class="bi bi-cash-coin"></i>
-                            </a>
-                        </span>
-                    }
-                </div>
-
+                <a class="btn @(status == "fechadas" ? "btn-primary" : "btn-outline-primary")"
+                   asp-action="Index" asp-route-status="fechadas">
+                    Contas fechadas
+                </a>
             </div>
         </div>
-    }
+
+        <div class="col-auto">
+            <a class="btn btn-primary" asp-action="Abrir">+ Abrir Conta</a>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        @foreach (DetalhesContaViewModel c in Model.Registros)
+        {
+            <div class="col-3">
+                <div class="card h-100 bg-dark border-secondary">
+                    <div class="card-body">
+                        <h5 class="card-title">@c.Titular</h5>
+                        <p class="card-text mb-1"><strong>Mesa:</strong> @c.Mesa</p>
+                        <p class="card-text mb-1"><strong>Garçom:</strong> @c.Garcom</p>
+
+                        @if (c.EstaAberta)
+                        {
+                            <span class="d-flex gap-1 justify-content-end mt-4">
+                                <a title="Gerenciar pedidos" asp-action="GerenciarPedidos" asp-route-id="@c.Id" class="btn btn-primary">
+                                    <i class="bi bi-cart"></i>
+                                </a>
+                                <a title="Fechar conta" asp-action="Fechar" asp-route-id="@c.Id" class="btn btn-success">
+                                    <i class="bi bi-cash-coin"></i>
+                                </a>
+                            </span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
 </div>
