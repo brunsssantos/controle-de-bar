@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Visualização de Contas";
+    var status = Context.Request.Query["status"].ToString()?.ToLower();
+}
+
+@model VisualizarContasViewModel
+
+<div class="container">
+
+    <div class="row align-items-center mb-3">
+        <div class="col">
+            <div class="d-flex flex-wrap gap-2">
+                <a class="btn @(string.IsNullOrEmpty(status) ? "btn-primary" : "btn-outline-primary")"
+                   asp-action="Index">
+                    Todas as contas
+                </a>
+
+                <a class="btn @(status == "abertas" ? "btn-primary" : "btn-outline-primary")"
+                   asp-action="Index" asp-route-status="abertas">
+                    Contas abertas
+                </a>
+
+                <a class="btn @(status == "fechadas" ? "btn-primary" : "btn-outline-primary")"
+                   asp-action="Index" asp-route-status="fechadas">
+                    Contas fechadas
+                </a>
+            </div>
+        </div>
+
+        <div class="col-auto">
+            <a class="btn btn-primary" asp-action="Abrir">+ Abrir Conta</a>
+        </div>
+    </div>
+
+   <div class="row g-3 align-items-stretch">
+            @foreach (DetalhesContaViewModel c in Model.Registros)
+            {
+                <div class="col-3 d-flex">
+                    <div class="card flex-fill h-100 bg-dark border-secondary d-flex flex-column">
+                        <div class="card-body">
+                            <h5 class="card-title">@c.Titular</h5>
+                            <p class="card-text mb-1"><strong>Mesa:</strong> @c.Mesa</p>
+                            <p class="card-text mb-1"><strong>Garçom:</strong> @c.Garcom</p>
+                        </div>
+
+                        @if (c.EstaAberta)
+                        {
+                            <div class="card-footer border-secondary mt-auto">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fw-semibold mb-0">Total: @c.ValorTotal.ToString("C2")</span>
+                                    <div class="d-flex gap-2">
+                                        <a title="Gerenciar pedidos" asp-action="GerenciarPedidos" asp-route-id="@c.Id" class="btn btn-primary">
+                                            <i class="bi bi-cart"></i>
+                                        </a>
+                                        <a title="Fechar conta" asp-action="Fechar" asp-route-id="@c.Id" class="btn btn-success">
+                                            <i class="bi bi-cash-coin"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="card-footer border-secondary mt-auto">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fw-semibold">Total: @c.ValorTotal.ToString("C2")</span>
+                                <a title="Ver detalhes" asp-action="GerenciarPedidos" asp-route-id="@c.Id" class="btn btn-outline-light">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+   </div>
+</div>
+

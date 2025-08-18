@@ -1,5 +1,6 @@
 ﻿using ControleDeBar.ConsoleApp.Compartilhado;
-using ControleDeBar.ConsoleApp.ModuloMesa;
+using ControleDeBar.Dominio.ModuloGarcom;
+using ControleDeBar.Infraestrutura.Memoria.ModuloGarcom;
 
 namespace ControleDeBar.ConsoleApp.ModuloGarcom;
 

@@ -1,8 +1,12 @@
 ﻿using ControleDeBar.ConsoleApp.Compartilhado;
-using ControleDeBar.ConsoleApp.ModuloGarcom;
-using ControleDeBar.ConsoleApp.ModuloMesa;
-using ControleDeBar.ConsoleApp.ModuloProduto;
-using System.Collections.Concurrent;
+using ControleDeBar.Dominio.ModuloConta;
+using ControleDeBar.Dominio.ModuloGarcom;
+using ControleDeBar.Dominio.ModuloMesa;
+using ControleDeBar.Dominio.ModuloProduto;
+using ControleDeBar.Infraestrutura.Memoria.ModuloConta;
+using ControleDeBar.Infraestrutura.Memoria.ModuloGarcom;
+using ControleDeBar.Infraestrutura.Memoria.ModuloMesa;
+using ControleDeBar.Infraestrutura.Memoria.ModuloProduto;
 
 namespace ControleDeBar.ConsoleApp.ModuloConta;
 
@@ -393,7 +397,7 @@ public class TelaConta : ITela
             "Id", "Produto", "Quantidade", "Valor Parcial"
         );
 
-        Pedido[] pedidos = conta.Pedidos;
+        Pedido[] pedidos = conta.Pedidos.ToArray();
 
         for (int i = 0; i < pedidos.Length; i++)
         {

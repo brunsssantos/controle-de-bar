@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Visualização de Mesas";
+}
+
+@model VisualizarMesasViewModel;
+
+<div class="container">
+    <div class="d-flex justify-content-end mb-3">
+        <a class="btn btn-outline-primary" href="/Mesa/Cadastrar">+ Nova Mesa</a>
+    </div>
+</div>
+
+
+<div class="row g-3">
+
+    @foreach (DetalhesMesaViewModel m in Model.Registros)
+    {
+        <div class="col-3">
+
+            <div class="card h-100 bg-dark border-secondary">
+                <div class="card-body">
+                    <h5 class="card-title">Mesa @m.Numero</h5>
+                    <p class="card-text mb-1"><strong>Capacidade:</strong> @m.Capacidade</p>
+                </div>
+                <div class="card-footer text-end border-secondary">
+                    <a class="btn btn-primary me-1" href="/Mesa/Editar/@m.Id">
+                        <i class="bi bi-pencil-square "></i>
+                    </a>
+                    <a class="btn btn-danger" href="/Mesa/Excluir/@m.Id">
+                        <i class="bi bi-trash3"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
