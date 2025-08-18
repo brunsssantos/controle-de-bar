@@ -1,5 +1,6 @@
 ﻿<html>
 <head>
+    <meta name="viewport" content="width=device-midth, initial-scale=1.0" />
     @* Bootstrap *@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
@@ -14,25 +15,33 @@
         var controller = ViewContext.RouteData.Values["controller"]?.ToString();
     }
     @* Barra de Navegação Navbar *@
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
             <a class="navbar-brand" href="/">Controle de Bar</a>
-            <ul class="navbar-nav flex-row ms-auto">
-                <li class="nav-item me-2">
-                    <a class="btn @(controller == "Mesa" ? "btn-primary" : "btn-outline-primary")" href="/Mesa">Mesas</a>
-                </li>
-                <li class="nav-item me-2">
-                    <a class="btn @(controller == "Garcom" ? "btn-primary" : "btn-outline-primary")" href="/Garcom">Garçons</a>
-                </li>
-                <li class="nav-item me-2">
-                    <a class="btn @(controller == "Conta" ? "btn-primary" : "btn-outline-primary")" href="/Conta">Contas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn @(controller == "Produto" ? "btn-primary" : "btn-outline-primary")" href="/Produto">Produtos</a>
-                </li>
-            </ul>
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto d-flex gap-2 mt-3 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="btn @(controller == "Mesa" ? "btn-primary" : "btn-outline-primary") w-100" href="/Mesa">Mesas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn @(controller == "Garcom" ? "btn-primary" : "btn-outline-primary") w-100" href="/Garcom">Garçons</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn @(controller == "Conta" ? "btn-primary" : "btn-outline-primary") w-100" href="/Conta">Contas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn @(controller == "Produto" ? "btn-primary" : "btn-outline-primary") w-100" href="/Produto">Produtos</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
+
 
     @* Cabeçalho *@
 
