@@ -27,22 +27,34 @@
                     </div>
                 </div>
 
-                <form class="row g-2 align-items-end" asp-action="AdicionarPedido" asp-route-id="@Model.Conta.Id" method="post">
+                @if (Model.Conta.EstaAberta)
+                {
+                    <form class="row g-2 align-items-end"
+                          asp-action="AdicionarPedido"
+                          asp-route-id="@Model.Conta.Id"
+                          method="post">
 
-                    <div class="col-12 col-md-7">
-                        <label class="form-label mb-1">Produto</label>
-                        <select class="form-select" name="IdProduto" asp-items="@Model.ProdutosDisponiveis"></select>
-                    </div>
+                        <div class="col-12 col-md-7">
+                            <label class="form-label mb-1">Produto</label>
+                            <select class="form-select" name="IdProduto" asp-items="@Model.ProdutosDisponiveis"></select>
+                        </div>
 
-                    <div class="col-6 col-md-3">
-                        <label class="form-label mb-1">Quantidade</label>
-                        <input type="number" min="1" value="1" name="QuantidadeSolicitada" class="form-control" />
-                    </div>
+                        <div class="col-6 col-md-3">
+                            <label class="form-label mb-1">Quantidade</label>
+                            <input type="number" min="1" value="1" name="QuantidadeSolicitada" class="form-control" />
+                        </div>
 
-                    <div class="col-6 col-md-2 d-grid">
-                        <button type="submit" class="btn btn-primary">Adicionar</button>
+                        <div class="col-6 col-md-2 d-grid">
+                            <button type="submit" class="btn btn-primary">Adicionar</button>
+                        </div>
+                    </form>
+                }
+                else
+                {
+                    <div class="alert alert-secondary mt-3 mb-0">
+                        Conta fechada. Inclusão/remoção de pedidos está bloqueada.
                     </div>
-                </form>
+                }
 
                 @if (!Model.Conta.Pedidos.Any())
                 {
@@ -61,26 +73,33 @@
                                     <th>Produto</th>
                                     <th class="text-center" style="width: 100px;">Qtd.</th>
                                     <th class="text-end" style="width: 140px;">Valor</th>
-                                    <th class="text-center" style="width: 80px;"></th>
+                                    @if (Model.Conta.EstaAberta)
+                                    {
+                                        <th class="text-center" style="width: 80px;"></th>
+                                    }
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (PedidoContaViewModel pedido in Model.Conta.Pedidos)
+                                @foreach (var pedido in Model.Conta.Pedidos)
                                 {
                                     <tr>
                                         <td>@pedido.Produto</td>
                                         <td class="text-center">@pedido.QuantidadeSolicitada</td>
                                         <td class="text-end">@pedido.TotalParcial.ToString("C2")</td>
-                                        <td class="text-center">
-                                            <form asp-action="RemoverPedido"
-                                                  asp-route-id="@Model.Conta.Id"
-                                                  asp-route-idPedido="@pedido.Id"
-                                                  method="post" class="m-0">
-                                                <button class="btn btn-outline-danger" title="Remover">
-                                                    <i class="bi bi-trash3"></i>
-                                                </button>
-                                            </form>
-                                        </td>
+
+                                        @if (Model.Conta.EstaAberta)
+                                        {
+                                            <td class="text-center">
+                                                <form asp-action="RemoverPedido"
+                                                      asp-route-id="@Model.Conta.Id"
+                                                      asp-route-idPedido="@pedido.Id"
+                                                      method="post" class="m-0">
+                                                    <button class="btn btn-outline-danger" title="Remover">
+                                                        <i class="bi bi-trash3"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        }
                                     </tr>
                                 }
                             </tbody>
@@ -88,14 +107,16 @@
                                 <tr>
                                     <th colspan="2" class="text-end">Total</th>
                                     <th class="text-end">@Model.Conta.ValorTotal.ToString("C2")</th>
-                                    <th></th>
+                                    @if (Model.Conta.EstaAberta)
+                                    {
+                                        <th></th>
+                                    }
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
                 }
 
-                <!-- Ações -->
                 <div class="d-flex justify-content-end align-items-center gap-3 mt-2">
                     <span class="fw-semibold">Total da Conta: @Model.Conta.ValorTotal.ToString("C2")</span>
                     <a asp-action="Index" class="btn btn-outline-secondary">Voltar</a>
