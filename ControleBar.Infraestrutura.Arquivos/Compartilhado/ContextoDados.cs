@@ -14,8 +14,11 @@ public class ContextoDados
     public List<Conta> Contas { get; set; } = new List<Conta>();
     public List<Produto> Produtos { get; set; } = new List<Produto>();
 
-    private string pastaArmazenamento = "C:\\temp"; // Define o caminho onde os dados serão salvos
-    private string arquivoArmazenmento = "dados-controle-bar.json"; // Define o nome do arquivo onde os dados serão salvos
+    private string pastaArmazenamento = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "ControleDeBar"
+    ); // Define o caminho onde os dados serão salvos
+    private string arquivoArmazenmento = "dados.json"; // Define o nome do arquivo onde os dados serão salvos
 
     public ContextoDados() { }
 
@@ -30,7 +33,6 @@ public class ContextoDados
         // Implementa a lógica de salvar dados em arquivo
         // Serializando objetos para JSON e gravando em um arquivo
 
-        //C:\temp\dados-controle-bar.json
         string caminhoCompleto = Path.Combine(pastaArmazenamento, arquivoArmazenmento); // Combina o caminho da pasta com o nome do arquivo
 
         JsonSerializerOptions jsonOptions = new JsonSerializerOptions(); // Permite que seja configurado o formato de serialização - customização do JSON
